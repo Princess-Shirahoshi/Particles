@@ -114,13 +114,12 @@ void Engine::draw()
     }
     else
     {
-        // here add draw code for the engine
-
         // loops through particles and draws them out, i think we've already learned how to add range based for loops but let me know if you wanna do it another way
-       // for (const auto& particle : m_particles)
-      //  {
-      //      m_Window.draw(particle);
-      //  } 
+	// -Karissa -> This should be fine, Gabe
+	for (const auto& particle : m_particles)
+ 	{
+     		m_Window.draw(particle);
+  	} 
     }
     
     m_Window.display();
