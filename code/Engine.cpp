@@ -92,26 +92,16 @@ Do not increment the iterator (if you do you might increment past the end of the
 {
    if (!m_titleScreen)
    {
-	   
+	   // So, his instructions say use a for loop 
+	   // I googled the increment and we only need to keep a semi-colon there at end and then it will like re-eval it but won't error out 
+	   for (auto i = m_particles.begin(); i != m_particles.end();)
+		   {
+			   if (getTTL() > 0.0)
+			   {
+				   // update for particle here 
+			   }
+		   }
    }
-
-
-       // auto it = m_particles.begin();
-      //  while (it != m_particles.end())
-       // {
-       //     if (it->getTTL() > 0.0f)
-       //     {
-       //         it->update(dtAsSeconds);
-       //         ++it;
-       //     }
-        //    else
-        //    {
-        //        it = m_particles.erase(it);ssss
-          //  }
-       // } 
- //   }
-
-    
 }
 
 void Engine::draw()
