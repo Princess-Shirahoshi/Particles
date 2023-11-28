@@ -129,31 +129,20 @@ void Engine::draw()
 // run function to run program loop
 void Engine::run()
 {
-    // constructs the clock object to track time per frame
     Clock clock;
 
-    // constructs a local particle to be used for unit tests
-    //cout << "Starting Particle unit tests..." << endl;
-    //Particle p(m_Window, 4, { (int)m_Window.getSize().x / 2, (int)m_Window.getSize().y / 2 });
-    //p.unitTests();
-    //cout << "Unit tests complete.  Starting engine..." << endl;
+    cout << "Starting Particle unit tests..." << endl;
+    Particle p(m_Window, 4, { (int)m_Window.getSize().x / 2, (int)m_Window.getSize().y / 2 });
+    p.unitTests();
+    cout << "Unit tests complete.  Starting engine..." << endl;
 
-    // here's the game loop
     while (m_Window.isOpen())
     {
-        // restarts the clock which returns the time elapsed since the last frame
         Time dt = clock.restart();
 
-        // converts clock time into seconds
         float dtAsSeconds = dt.asSeconds();
-
-        // calls input function
         input();
-
-        // calls update function
         update(dtAsSeconds);
-
-        // calls draw function
         draw();
     }
 }
