@@ -1,7 +1,7 @@
 #pragma once
 #pragma once
 #include <SFML/Graphics.hpp>
-//#include "Particle.h"
+#include "Particle.h"
 using namespace sf;
 using namespace std;
 
@@ -15,7 +15,7 @@ private:
 	RenderWindow m_Window;
 
 	//vector for Particles
-	//vector<Particle> m_particles;
+	vector<Particle> m_particles;
 
 	// Private functions for internal use only
 	void input();

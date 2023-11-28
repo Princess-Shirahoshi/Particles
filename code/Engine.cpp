@@ -4,6 +4,9 @@
 
 #include "Engine.h"
 #include <iostream> // added for cout 
+#include "Particle.h"
+#include <iterator>
+using namespace std;
 
 // engine constructor
 Engine::Engine() : m_Window(VideoMode(1920, 1080), "Particles!!", Style::Default)
@@ -76,7 +79,7 @@ Pass the position of the mouse click into the constructor*/
 			    // constructs the particles 
 			    int particleEdges = rand() % (50 - 25 - 1) + 25; // I think -- I hate rand because I am not good at it 
 			    // So, I think we need to use this to locate where our mouse is - Kinda of similar to Chaos when we were clicking but a bit different because it's constant to a degree 
-			    Particle particleDisplayLoc(m_Window, numPoints, Mouse::getPosition());
+			    Particle particleDisplayLoc(m_Window, particleEdges, Mouse::getPosition());
 			    m_particles.push_back(particleDisplayLoc);
 		    }
         }
@@ -104,7 +107,7 @@ Do not increment the iterator (if you do you might increment past the end of the
 	   // I googled the increment and we only need to keep a semi-colon there at end and then it will like re-eval it but won't error out 
 	   for (auto i = m_particles.begin(); i != m_particles.end();)
 		   {
-			   if (getTTL() > 0.0)
+			   if (i->getTTL() > 0.0)
 			   {
 				   i->update(dtAsSeconds);
 				   i++;
@@ -127,16 +130,15 @@ void Engine::draw()
         m_Window.draw(m_titleText);
         m_Window.draw(m_startText);
     }
+
+
     else
     {
-        // loops through particles and draws them out, i think we've already learned how to add range based for loops but let me know if you wanna do it another way
-	// Gabe -> This should be fine
-	for (const auto& particle : m_particles)
- 	{
-     		m_Window.draw(particle);
-  	} 
+        for (Particle parti : m_particles)
+        {
+                m_Window.draw(parti);
+        } 
     }
-    
     m_Window.display();
 }
 
