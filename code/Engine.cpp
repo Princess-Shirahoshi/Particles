@@ -66,12 +66,6 @@ void Engine::input()
         {
             m_titleScreen = false;
         }
-
-        // If you press escape it exits the game
-        if (Keyboard::isKeyPressed(Keyboard::Escape))
-		{
-			m_Window.close();
-		}
     }
 }
 
@@ -98,7 +92,12 @@ Do not increment the iterator (if you do you might increment past the end of the
 		   {
 			   if (getTTL() > 0.0)
 			   {
-				   // update for particle here 
+				   update(dtAsSeconds);
+				   i++;
+			   }
+			   else
+			   {
+				   i = m_particles.erase(i);
 			   }
 		   }
    }
