@@ -46,102 +46,23 @@ namespace Matrices
 
     ///Add each corresponding element.
     ///usage:  c = a + b;
-    Matrix operator+(const Matrix& a, const Matrix& b)
-    {
-        if (a.getCols() != b.getCols() || a.getRows() != b.getRows())
-        throw runtime_error("Error: dimensions must agree");
-
-        // if we  get here the dimensions match
-        Matrix c(a.getRows(), a.getCols());
-        
-        for (int i = 0; i < a.getRows(); i++)
-        {
-            for (int j = 0; j < a.getCols(); j++)
-            {
-                c(i, j) = a(i, j) + b(i, j);
-            }
-        }
-        return c;
-    }
+    Matrix operator+(const Matrix& a, const Matrix& b);
 
     ///Matrix multiply.  See description.
     ///usage:  c = a * b;
-    Matrix operator*(const Matrix& a, const Matrix& b)
-    {
-        if (a.getCols() != b.getRows())
-        {
-            throw runtime_error("Error: dimensions must agree");
-        }
-
-        Matrix c(a.getRows(), b.getCols()); // Create a result matrix with appropriate dimensions
-
-        for (int k = 0; k < a.getRows(); k++) // Outermost loop k
-        {
-            for (int i = 0; i < b.getCols(); i++) // Middle loop i
-            {
-            double sum = 0.0;
-                for (int j = 0; j < a.getCols(); j++) // Innermost loop j
-                {
-                    sum += a(k, j) * b(j, i);
-                }
-            c(k, i) = sum;
-            }
-        }
-        return c;
-    }
+    Matrix operator*(const Matrix& a, const Matrix& b);
 
     ///Matrix comparison.  See description.
     ///usage:  a == b
-    bool operator==(const Matrix& a, const Matrix& b)
-    {
-        if (a.getRows() != b.getRows() || a.getCols() != b.getCols())
-            return false;
-
-        for (int i = 0; i < a.getRows(); i++)
-        {
-            for (int j = 0; j < a.getCols(); j++)
-            {
-                if (abs(a(i, j) - b(i, j)) >= 0.001)
-                    return false;
-            }
-        }
-
-        return true;
-    }
+    bool operator==(const Matrix& a, const Matrix& b);
 
     ///Matrix comparison.  See description.
     ///usage:  a != b
-    bool operator!=(const Matrix& a, const Matrix& b)
-    {
-        if (a.getRows() != b.getRows() || a.getCols() != b.getCols()) {
-            return true;
-        }
-
-        for (int i = 0; i < a.getRows(); ++i) 
-        {
-            for (int j = 0; j < a.getCols(); ++j) {
-                if (abs(a(i, j) - b(i, j)) >= 0.001) {
-                    return true;
-                }
-            }
-        }
-        return false;
-    }
+    bool operator!=(const Matrix& a, const Matrix& b);
 
     ///Output matrix.
     ///Separate columns by ' ' and rows by '\n'
-    ostream& operator<<(ostream& os, const Matrix& a)
-    {
-        for (int i = 0; i < a.getRows(); i++)
-        {
-            for (int j = 0; j < a.getCols(); j++)
-            {
-                os << setw(10) << right << a(i, j);
-            }
-            os << endl;
-        }
-        return os;
-    }
+    ostream& operator<<(ostream& os, const Matrix& a);
 
     /*******************************************************************************/
 
