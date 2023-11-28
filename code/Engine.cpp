@@ -51,6 +51,12 @@ Engine::Engine() : m_Window(VideoMode(1920, 1080), "Particles!!", Style::Default
 
 // input function to handle user input
 void Engine::input()
+/*Poll the Windows event queue
+Handle the Escape key pressed and closed events so your program can exit
+Handle the left mouse button pressed event
+Create a loop to construct 5 particles (I used 5, you can change this if you want)
+numPoints is a random number in the range [25:50] (you can experiment with this too)
+Pass the position of the mouse click into the constructor*/
 {
     Event event;
 	while (m_Window.pollEvent(event))
