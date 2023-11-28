@@ -1,5 +1,6 @@
 // Suggestions:
 // Karissa do you want to organize the functions like this or match exactly to the instructions? I think this looks more sequential but lemme know what you think
+// Gabe -> I think the functions look fine, we just want to make sure it's readable for the professor // this should be okay
 
 #include "Engine.h"
 #include <iostream> // added for cout 
@@ -76,12 +77,25 @@ void Engine::input()
 
 // update function to update game state
 void Engine::update(float dtAsSeconds)
+/*The general idea here is to loop through m_particles and call update on each Particle in the vector whose ttl (time to live) has not expired
+If a particle's ttl has expired, it must be erased from the vector
+This is best done with an iterator-based for-loop
+Don't automatically increment the iterator for each iteration
+if getTTL() > 0.0
+Call update on that Particle
+increment the iterator
+else
+erase the element the iterator points to
+erase returns an iterator that points to the next element after deletion, or end if it is the end of the vector
+Assign the iterator to this return value
+Do not increment the iterator (if you do you might increment past the end of the vector after you delete the last element)*/
 {
-   // if (!m_titleScreen)
-  //  {
-        // add code here
+   if (!m_titleScreen)
+   {
+	   
+   }
 
-        // loops through particles to update them
+
        // auto it = m_particles.begin();
       //  while (it != m_particles.end())
        // {
@@ -100,8 +114,6 @@ void Engine::update(float dtAsSeconds)
     
 }
 
-// draw function to draw out the program
-
 void Engine::draw()
 {
     m_Window.clear();
@@ -115,7 +127,7 @@ void Engine::draw()
     else
     {
         // loops through particles and draws them out, i think we've already learned how to add range based for loops but let me know if you wanna do it another way
-	// -Karissa -> This should be fine, Gabe
+	// Gabe -> This should be fine
 	for (const auto& particle : m_particles)
  	{
      		m_Window.draw(particle);
