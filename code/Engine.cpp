@@ -77,7 +77,7 @@ Pass the position of the mouse click into the constructor*/
 			    int particleEdges = rand() % (50 - 25 - 1) + 25; // I think -- I hate rand because I am not good at it 
 			    // So, I think we need to use this to locate where our mouse is - Kinda of similar to Chaos when we were clicking but a bit different because it's constant to a degree 
 			    Particle particleDisplayLoc(m_Window, numPoints, Mouse::getPosition());
-			    m_particles.push_back(particle);
+			    m_particles.push_back(particleDisplayLoc);
 		    }
         }
     }
@@ -106,7 +106,7 @@ Do not increment the iterator (if you do you might increment past the end of the
 		   {
 			   if (getTTL() > 0.0)
 			   {
-				   update(dtAsSeconds);
+				   i->update(dtAsSeconds);
 				   i++;
 			   }
 			   else
@@ -160,4 +160,3 @@ void Engine::run()
         draw();
     }
 }
-
