@@ -108,7 +108,7 @@ namespace Matrices
 
 	RotationMatrix::RotationMatrix(double theta) : Matrix(2, 2)
 	{
-		//use the linear algebra formula for rotation
+        // cos && theta here from Trig
 		a.at(0).at(0) = cos(theta);
 		a.at(0).at(1) = -sin(theta);
 		a.at(1).at(0) = sin(theta);
@@ -118,8 +118,7 @@ namespace Matrices
 
 	ScalingMatrix::ScalingMatrix(double scale) : Matrix(2, 2)
 	{
-		//use the linear algebra formula for scaling: 
-		//expand or shrink by a factor 
+        // scaling 
 		a.at(0).at(0) = scale;
 		a.at(0).at(1) = 0;
 		a.at(1).at(0) = 0;
@@ -128,7 +127,7 @@ namespace Matrices
 
 	TranslationMatrix::TranslationMatrix(double xShift, double yShift, int nCols) : Matrix(2, nCols)
 	{
-		//shift each column value by a certain amount to translate
+        // Translation and shifting 
 		for (int i = 0; i < nCols; i++)
 		{
 			a.at(0).at(i) = xShift;
