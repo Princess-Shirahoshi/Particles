@@ -51,8 +51,8 @@ Engine::Engine() : m_Window(VideoMode(1920, 1080), "Particles!!", Style::Default
 
 // input function to handle user input
 void Engine::input()
-/*Poll the Windows event queue
-Handle the Escape key pressed and closed events so your program can exit
+/*Poll the Windows event queue - Dne
+Handle the Escape key pressed and closed events so your program can exit - Done
 Handle the left mouse button pressed event
 Create a loop to construct 5 particles (I used 5, you can change this if you want)
 numPoints is a random number in the range [25:50] (you can experiment with this too)
@@ -61,7 +61,7 @@ Pass the position of the mouse click into the constructor*/
     Event event;
 	while (m_Window.pollEvent(event))
 	{
-        if (event.type == Event::Closed)
+        if (event.type == Event::Closed || Keyboard::isKeyPressed(Keyboard::Escape))
         {
 		    // quit the game when the window is closed
 			m_Window.close();
@@ -71,6 +71,10 @@ Pass the position of the mouse click into the constructor*/
         if (event.type == Event::KeyPressed && m_titleScreen) 
         {
             m_titleScreen = false;
+	    for (int i = 0; i < 5; i++)
+		    {
+			    // constructs the particles 
+		    }
         }
     }
 }
