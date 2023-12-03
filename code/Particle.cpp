@@ -9,51 +9,41 @@ bool Particle::almostEqual(double a, double b, double eps)
 
 Particle::Particle(RenderTarget& target, int numPoints, Vector2i mouseClickPosition)
     : m_A(2, numPoints)
-{
-    m_ttl = TTL;
-
-    m_numPoints = numPoints;
-
-    m_radiansPerSec = (float)rand() / RAND_MAX * M_PI;
-
-    m_cartesianPlane.setCenter(0, 0);
-    m_cartesianPlane.setSize(target.getSize().x, (-1.0) * target.getSize().y);
-
-    m_centerCoordinate = target.mapPixelToCoords(mouseClickPosition, m_cartesianPlane);
-
-    m_vx = (float)(rand() % 402 + 100); // per instructions range between 100 and 500 worked for prof, so we can adjust here -K
-
-    if (rand() % 2 != 0)
     {
-        m_vx *= -1; // this will randomly make m_vy a negative value
-    }
+
+    m_ttl = TTL; //TTL: global variable declared to 5
+	m_numPoints = numPoints; // Initialize m_numPoints to numPoints
+
+	m_radiansPerSec = ((float)rand() / (RAND_MAX)) * M_PI; 
+
+	m_cartesianPlane.setCenter(0, 0);
+	m_cartesianPlane.setSize(target.getSize().x, (-1.0) * target.getSize().y);
 
 
-    // assigns m_color1 & m_color2 with Colors (can be adjusted to whatever colors we want to display)
-    m_color1 = Color::White;
-    m_color2 = Color(rand() % 256, rand() % 256, rand() % 256); 
+	m_centerCoordinate = target.mapPixelToCoords(mouseClickPosition, m_cartesianPlane);
 
-    m_A = Matrix(2, numPoints);
+	m_vx = rand() % (400 + 100);
+	m_vy = rand() % (400 + 100);
 
-    // generate the numPoint vertices 
-    float theta = ((float)rand() / RAND_MAX) * M_PI / 2.0;
-    float dTheta = 2.0 * M_PI / (numPoints - 1);
+	m_color1 = Color::White;
+	m_color2 = Color(rand() % 255, rand() % 255, rand() % 255);
 
-    for (int j = 0; j < numPoints; ++j)
-    {
-        float r = (float)(rand() % 61 + 20); // here we have random values in a range of 20 to 80 (can be adjusted)
-        float dx = r * cos(theta);
-        float dy = r * sin(theta);
 
-        // here we are assigning the Cartesian coordinate of the newly generated vertex to m_A
-        m_A(0, j) = m_centerCoordinate.x + dx;
-        m_A(1, j) = m_centerCoordinate.y + dy;
+	float theta = ((float)rand() / RAND_MAX) * M_PI / 2.0;
+	float dTheta = ((2 * M_PI) / (numPoints - 1)); 
 
-        // now increment theta by dTheta
-        theta += dTheta;
-    }
+
+	for (int j = 0; j < numPoints; j++)
+	{
+		float r = rand() % 61 + 20;
+		float dx = r * cos(theta);	
+		float dy = r * sin(theta);
+		theta += dTheta;			
+
+		m_A(0, j) = m_centerCoordinate.x + dx;
+		m_A(1, j) = m_centerCoordinate.y + dy;
+	}
 }
-
 
 void Particle::draw(RenderTarget& target, RenderStates states) const
 {

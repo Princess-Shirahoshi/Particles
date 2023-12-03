@@ -62,26 +62,34 @@ numPoints is a random number in the range [25:50] (you can experiment with this 
 Pass the position of the mouse click into the constructor*/
 {
     Event event;
-	while (m_Window.pollEvent(event))
-	{
+    while (m_Window.pollEvent(event))
+    {
         if (event.type == Event::Closed || Keyboard::isKeyPressed(Keyboard::Escape))
         {
-		    // quit the game when the window is closed
-			m_Window.close();
+            m_Window.close();
         }
-			
+
         // exits title screen ONLY if user presses a key (NO CLICKY)
-        if (event.type == Event::KeyPressed && m_titleScreen) 
+        if (event.type == Event::KeyPressed && m_titleScreen)
         {
             m_titleScreen = false;
-	    for (int i = 0; i < 5; i++)
-		    {
-			    // constructs the particles 
-			    int numPoints = rand() % (50 - 25 - 1) + 25; // I think -- I hate rand because I am not good at it 
-			    // So, I think we need to use this to locate where our mouse is - Kinda of similar to Chaos when we were clicking but a bit different because it's constant to a degree 
-			    Particle particleDisplayLoc(m_Window, numPoints, Mouse::getPosition());
-			    m_particles.push_back(particleDisplayLoc);
-		    }
+            for (int i = 0; i < 5; i++)
+            {
+                // constructs the particles 
+                int numPoints = rand() % (50 - 25 - 1) + 25;
+                Vector2i mouseCoords = Mouse::getPosition(m_Window);
+                Particle particleDisplayLoc(m_Window, numPoints, mouseCoords);
+                m_particles.push_back(particleDisplayLoc);
+            }
+        }
+
+        // Check for mouse button press to create particles
+        if (event.type == Event::MouseButtonPressed && event.mouseButton.button == Mouse::Left)
+        {
+            int numPoints = rand() % (50 - 25 - 1) + 25;
+            //Vector2i mouseCoords = Mouse::getPosition(m_Window);
+            Particle particleDisplayLoc(m_Window, numPoints, Mouse::getPosition(m_Window));
+            m_particles.push_back(particleDisplayLoc);
         }
     }
 }
