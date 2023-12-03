@@ -7,8 +7,11 @@ const float G = 1000;      //Gravity
 const float TTL = 5.0;  //Time To Live
 const float SCALE = 0.999;
 
+
 using namespace Matrices;
 using namespace sf;
+
+
 class Particle : public Drawable
 {
 public:
