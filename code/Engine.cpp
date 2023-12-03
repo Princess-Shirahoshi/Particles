@@ -139,9 +139,9 @@ void Engine::draw()
 
     else
     {
-        for (Particle parti : m_particles)
+        for (Particle particle : m_particles)
         {
-                m_Window.draw(parti);
+                m_Window.draw(particle);
         } 
     }
     m_Window.display();
