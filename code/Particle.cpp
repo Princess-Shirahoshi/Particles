@@ -10,34 +10,29 @@ bool Particle::almostEqual(double a, double b, double eps)
 Particle::Particle(RenderTarget& target, int numPoints, Vector2i mouseClickPosition)
     : m_A(2, numPoints)
 {
-    // initialize m_ttl with global const TTL
     m_ttl = TTL;
 
-    // initialize m_numPoints with numPoints
     m_numPoints = numPoints;
 
-    // initialize m_radiansPerSec to a random angular velocity in a range of [0:PI]
     m_radiansPerSec = (float)rand() / RAND_MAX * M_PI;
 
-    // initialize m_cartesianPlane
     m_cartesianPlane.setCenter(0, 0);
     m_cartesianPlane.setSize(target.getSize().x, (-1.0) * target.getSize().y);
 
-    // this will store the location of the center of that particle on the cartesian plane in m_centerCoordinate
     m_centerCoordinate = target.mapPixelToCoords(mouseClickPosition, m_cartesianPlane);
 
-    // assigns m_vx & m_vy to random pixel velocities 
-    m_vx = (float)(rand() % 402 + 100); // per instructions range between 100 and 500 worked for prof, so we can adjust here 
+    m_vx = (float)(rand() % 402 + 100); // per instructions range between 100 and 500 worked for prof, so we can adjust here -K
+
     if (rand() % 2 != 0)
     {
         m_vx *= -1; // this will randomly make m_vy a negative value
     }
 
+
     // assigns m_color1 & m_color2 with Colors (can be adjusted to whatever colors we want to display)
     m_color1 = Color::White;
     m_color2 = Color(rand() % 256, rand() % 256, rand() % 256); 
 
-    // initialize m_A 
     m_A = Matrix(2, numPoints);
 
     // generate the numPoint vertices 
@@ -65,16 +60,14 @@ void Particle::draw(RenderTarget& target, RenderStates states) const
     // here we are constructing a VertexArray called lines
     VertexArray lines(TriangleFan, m_numPoints + 1);
 
-    // declaring a local Vector2f called center
+    	// declaring a local Vector2f called center
     Vector2f center;
 
     // assigns it with mapping of m_centerCoordinate from Cartesian to pixel / monitor coordinates using mapCoordsToPixel
     center = target.mapCoordsToPixel(Vector2f(m_centerCoordinate), m_cartesianPlane);
 
-    // assigns lines[0].position with center
+	//Gabe ->  Deleted comments saying you initialized these? Seems like a bit of overkill in comments - Karissa
     lines[0].position = center;
-
-    // assigns lines[0].color with m_color
     lines[0].color = m_color1;
 
     // loop j from 1 up to and inluding m_numPoints
