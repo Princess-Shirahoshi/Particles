@@ -7,7 +7,6 @@ namespace Matrices
 	{
 		rows = _rows;
 		cols = _cols;
-
 		a.resize(rows, vector<double>(cols, 0));
 	}
 
