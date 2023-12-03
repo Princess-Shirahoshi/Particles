@@ -64,7 +64,7 @@ void Particle::draw(RenderTarget& target, RenderStates states) const
     Vector2f center;
 
     // assigns it with mapping of m_centerCoordinate from Cartesian to pixel / monitor coordinates using mapCoordsToPixel
-    center = target.mapCoordsToPixel(Vector2f(m_centerCoordinate), m_cartesianPlane);
+    center = (Vector2f)(target.mapCoordsToPixel(m_centerCoordinate, m_cartesianPlane));
 
 	//Gabe ->  Deleted comments saying you initialized these? Seems like a bit of overkill in comments - Karissa
     lines[0].position = center;
@@ -75,7 +75,7 @@ void Particle::draw(RenderTarget& target, RenderStates states) const
     {
 	// Gabe -> Shouldn't we use like a temp here maybe? Kinda like pointers and temp variables? (not pointers though) - K
 	// Gabe -> This seems a bit bulky? I think it'd look more readable if it wasn't so compact (like step by step in a sense) - K
-	lines[j].position = target.mapCoordsToPixel(Vector2f(m_A(0, j - 1), m_A(1, j - 1)), m_cartesianPlane);
+	lines[j].position = (Vector2f)(target.mapCoordsToPixel(Vector2f(m_A(0,j-1),m_A(1,j-1)), m_cartesianPlane));
 
 	// assigns lines[j].color with m_Color2
 	lines[j].color = m_color2;
@@ -105,7 +105,7 @@ void Particle::update(float dt)
 
 void Particle::translate(double xShift, double yShift)
 {
-	TranslationMatrix T(xShift, yShift);  
+	TranslationMatrix T(xShift, yShift, m_A.getCols());  
 	m_A = T + m_A;		
 	m_centerCoordinate.x += xShift;
 	m_centerCoordinate.y += yShift;
@@ -128,9 +128,9 @@ void Particle::scale(double c)
 	ScalingMatrix S(c);
 	m_A = S * m_A;			
 	translate(temp.x, temp.y);	
+}
 
-
-/*void Particle::unitTests()
+void Particle::unitTests()
 {
     int score = 0;
 
@@ -267,4 +267,4 @@ void Particle::scale(double c)
     }
 
     cout << "Score: " << score << " / 7" << endl;
-} */
+} 
