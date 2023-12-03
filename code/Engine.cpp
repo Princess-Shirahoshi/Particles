@@ -52,14 +52,8 @@ Engine::Engine() : m_Window(VideoMode(1920, 1080), "Particles!!", Style::Default
     m_titleScreen = true;
 }
 
-// input function to handle user input
+
 void Engine::input()
-/*Poll the Windows event queue - Dne
-Handle the Escape key pressed and closed events so your program can exit - Done
-Handle the left mouse button pressed event
-Create a loop to construct 5 particles (I used 5, you can change this if you want)
-numPoints is a random number in the range [25:50] (you can experiment with this too)
-Pass the position of the mouse click into the constructor*/
 {
     Event event;
     while (m_Window.pollEvent(event))
@@ -75,26 +69,29 @@ Pass the position of the mouse click into the constructor*/
             m_titleScreen = false;
             for (int i = 0; i < 5; i++)
             {
-                // constructs the particles 
+                int numPoints = rand() % (50 - 25 - 1) + 25;
+                Vector2i mouseCoords = Mouse::getPosition(m_Window);
+
+                Particle particleDisplayLoc(m_Window, numPoints, mouseCoords);
+                m_particles.push_back(particleDisplayLoc);
+            }
+        }
+
+
+        if (event.type == Event::MouseButtonPressed && event.mouseButton.button == Mouse::Left)
+        {
+            for (int i = 0; i < 5; i++)
+            {
                 int numPoints = rand() % (50 - 25 - 1) + 25;
                 Vector2i mouseCoords = Mouse::getPosition(m_Window);
                 Particle particleDisplayLoc(m_Window, numPoints, mouseCoords);
                 m_particles.push_back(particleDisplayLoc);
             }
         }
-
-        // Check for mouse button press to create particles
-        if (event.type == Event::MouseButtonPressed && event.mouseButton.button == Mouse::Left)
-        {
-            int numPoints = rand() % (50 - 25 - 1) + 25;
-            //Vector2i mouseCoords = Mouse::getPosition(m_Window);
-            Particle particleDisplayLoc(m_Window, numPoints, Mouse::getPosition(m_Window));
-            m_particles.push_back(particleDisplayLoc);
-        }
     }
 }
 
-// update function to update game state
+
 void Engine::update(float dtAsSeconds)
 /*The general idea here is to loop through m_particles and call update on each Particle in the vector whose ttl (time to live) has not expired
 If a particle's ttl has expired, it must be erased from the vector

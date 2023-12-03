@@ -1,3 +1,7 @@
+// My Matrices project is gone / corrupted from the Power Server
+// There is a random save of one called Matrices.save.cpp, but I'm honestly not sure what happened to my original one
+// I pulled this from my PC, but I remember it working when I ran it through Hermle's grader - K 
+
 #include "Matrices.h"
 
 namespace Matrices

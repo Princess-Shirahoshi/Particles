@@ -26,7 +26,12 @@ Particle::Particle(RenderTarget& target, int numPoints, Vector2i mouseClickPosit
 	m_vy = rand() % (400 + 100);
 
 	m_color1 = Color::White;
-	m_color2 = Color(rand() % 255, rand() % 255, rand() % 255);
+
+    // 200 170 203 for white and blue (wintery)
+    // 255 200 100 for spring green
+    // 243 rand() % 207, 180) for pink pink fun 
+    
+	m_color2 = Color(243, rand() % 207, 180);
 
 
 	float theta = ((float)rand() / RAND_MAX) * M_PI / 2.0;
