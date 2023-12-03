@@ -6,6 +6,7 @@ bool Particle::almostEqual(double a, double b, double eps)
 	return fabs(a - b) < eps;
 }
 
+
 Particle::Particle(RenderTarget& target, int numPoints, Vector2i mouseClickPosition)
     : m_A(2, numPoints)
 {
