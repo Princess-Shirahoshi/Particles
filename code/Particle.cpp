@@ -73,12 +73,12 @@ void Particle::draw(RenderTarget& target, RenderStates states) const
     // loop j from 1 up to and inluding m_numPoints
     for (int j = 1; j <= m_numPoints; ++j)
     {
-        // assigns lines[j].position with the coord from column j - 1 in m_A
-        // this is mapped from Cartesian to pixel coords using mapCoordsToPixel
-        lines[j].position = target.mapCoordsToPixel(Vector2f(m_A(0, j - 1), m_A(1, j - 1)), m_cartesianPlane);
+	// Gabe -> Shouldn't we use like a temp here maybe? Kinda like pointers and temp variables? (not pointers though) - K
+	// Gabe -> This seems a bit bulky? I think it'd look more readable if it wasn't so compact (like step by step in a sense) - K
+	lines[j].position = target.mapCoordsToPixel(Vector2f(m_A(0, j - 1), m_A(1, j - 1)), m_cartesianPlane);
 
-        // assigns lines[j].color with m_Color2
-        lines[j].color = m_color2;
+	// assigns lines[j].color with m_Color2
+	lines[j].color = m_color2;
     }
     
     // as soon as the loop is done, draw the VertexArray
@@ -88,24 +88,18 @@ void Particle::draw(RenderTarget& target, RenderStates states) const
 
 void Particle::update(float dt)
 {
-    // subtrating dt from m_ttl
+	//Gabe ->  I'd rather define them at the top so we can refer easier than having to sift or ctrl find it -K
+	float dx;
+	float dy;
     m_ttl -= dt;
 
-    // call rotate with an angle of dt * m_radiansPerSec
     rotate(dt * m_radiansPerSec);
-
-    // call scale using the global const SCALE
     scale(SCALE);
 
-    // calculates how far to shift / translate the particle using distance (dx, dy)
-    float dx = m_vx * dt;
-
-    // vertical velocity changes here due to gravity const G
+    dx = m_vx * dt;
     m_vy -= G * dt;
+    dy = m_vy * dt;
 
-    float dy = m_vy * dt;
-
-    // call translate (dx & dy as arguments)
     translate(dx, dy); 
 }
 
