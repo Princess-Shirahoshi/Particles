@@ -1,5 +1,9 @@
 #include "Particle.h"
 
+void Particle::setColor(const Color& currentThemeColor) //const makes sure variable isn't modified & we want to pass by reference for efficiency
+{
+    m_color2 = currentThemeColor;
+}
 
 bool Particle::almostEqual(double a, double b, double eps)
 {
@@ -31,8 +35,7 @@ Particle::Particle(RenderTarget& target, int numPoints, Vector2i mouseClickPosit
     // 255 200 100 for spring green
     // 243 rand() % 207, 180) for pink pink fun 
     
-	m_color2 = Color(243, rand() % 207, 180);
-
+	m_color2 = Color(rand() % 256, rand() % 256, rand() % 256);
 
 	float theta = ((float)rand() / RAND_MAX) * M_PI / 2.0;
 	float dTheta = ((2 * M_PI) / (numPoints - 1)); 
@@ -61,7 +64,6 @@ void Particle::draw(RenderTarget& target, RenderStates states) const
     // assigns it with mapping of m_centerCoordinate from Cartesian to pixel / monitor coordinates using mapCoordsToPixel
     center = (Vector2f)(target.mapCoordsToPixel(m_centerCoordinate, m_cartesianPlane));
 
-	//Gabe ->  Deleted comments saying you initialized these? Seems like a bit of overkill in comments - Karissa
     lines[0].position = center;
     lines[0].color = m_color1;
 
