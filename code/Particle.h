@@ -23,6 +23,9 @@ public:
     	//Functions for unit testing
     	bool almostEqual(double a, double b, double eps = 0.0001);
     	void unitTests();
+    
+    // sets color for themes
+    void setColor(const Color& currentThemeColor);
 
 private:
     	float m_ttl;
