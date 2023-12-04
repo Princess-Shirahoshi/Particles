@@ -8,6 +8,16 @@
 #include <iterator>
 using namespace std;
 
+enum Theme 
+{
+    RAINBOW,
+    WINTER,
+    SPRING,
+    SUMMER,
+    FALL
+
+};
+
 // engine constructor
 Engine::Engine() : m_Window(VideoMode(1920, 1080), "Particles!!", Style::Default)
 {
@@ -20,7 +30,34 @@ Engine::Engine() : m_Window(VideoMode(1920, 1080), "Particles!!", Style::Default
     // now we're setting the texture for background sprite
     m_backgroundSprite.setTexture(m_backgroundTexture);
 
+    // for the themes now
+    if (!m_rainbowBackgroundTexture.loadFromFile("rainbow.jpg"))
+    {
+        cout << "Error loading rainbow theme image!" << endl;
+    }
+
+    if (!m_winterBackgroundTexture.loadFromFile("winter.jpg"))
+    {
+        cout << "Error loading winter theme image!" << endl;
+    }
+
+    if (!m_springBackgroundTexture.loadFromFile("sprin.jpg"))
+    {
+        cout << "Error loading spring theme image!" << endl;
+    }
+
+    if (!m_summerBackgroundTexture.loadFromFile("summer.jpg"))
+    {
+        cout << "Error loading summer theme image!" << endl;
+    }
+
+    if (!m_fallBackgroundTexture.loadFromFile("fall.jpeg"))
+    {
+        cout << "Error loading fall theme image!" << endl;
+    }
     
+
+    m_backgroundSpriteTheme.setTexture(m_rainbowBackgroundTexture);
     // added this in case font doesnt load for whatever reason
     if (!m_font.loadFromFile("font.ttf")) 
     {
@@ -33,6 +70,7 @@ Engine::Engine() : m_Window(VideoMode(1920, 1080), "Particles!!", Style::Default
     m_text.setCharacterSize(60); //Sets m_text size
     m_text.setFillColor(Color::White); //Sets m_text color
     m_text.setPosition(10, 10); //Positions m_text
+    m_text.setString("PRESS 'T' TO CHANGE THEME");
     
     m_titleText.setFont(m_font);
     m_titleText.setCharacterSize(300);
@@ -40,7 +78,7 @@ Engine::Engine() : m_Window(VideoMode(1920, 1080), "Particles!!", Style::Default
     m_titleText.setOutlineColor(Color::White);
     m_titleText.setOutlineThickness(3.0f);
     m_titleText.setPosition(550, 140);
-    m_titleText.setString("Particles"); //Adds title screen
+    m_titleText.setString("PARTICLES"); //Adds title screen
 
     m_startText.setFont(m_font);
     m_startText.setCharacterSize(60);
@@ -64,19 +102,17 @@ void Engine::input()
         }
 
         // exits title screen ONLY if user presses a key (NO CLICKY)
-        if (event.type == Event::KeyPressed && m_titleScreen)
+        if (event.type == Event::KeyPressed && m_titleScreen && !(event.key.code == Keyboard::T))
         {
             m_titleScreen = false;
             for (int i = 0; i < 5; i++)
             {
                 int numPoints = rand() % (50 - 25 - 1) + 25;
                 Vector2i mouseCoords = Mouse::getPosition(m_Window);
-
                 Particle particleDisplayLoc(m_Window, numPoints, mouseCoords);
                 m_particles.push_back(particleDisplayLoc);
             }
         }
-
 
         if (event.type == Event::MouseButtonPressed && event.mouseButton.button == Mouse::Left)
         {
@@ -85,6 +121,68 @@ void Engine::input()
                 int numPoints = rand() % (50 - 25 - 1) + 25;
                 Vector2i mouseCoords = Mouse::getPosition(m_Window);
                 Particle particleDisplayLoc(m_Window, numPoints, mouseCoords);
+                m_particles.push_back(particleDisplayLoc);
+            }
+        }
+        if (event.type == Event::KeyPressed && event.key.code == Keyboard::T && !m_titleScreen)
+        {
+            cout << "Changing theme from " << m_currentTheme;
+
+            m_currentTheme = (m_currentTheme + 1) % 5; // change 5 to add to the total number of themes
+
+            cout << " to " << m_currentTheme << endl;
+
+            // made a new swith statement for themed backgrounds
+            switch (m_currentTheme)
+            {
+                case RAINBOW:
+                    m_backgroundSpriteTheme.setTexture(m_rainbowBackgroundTexture);
+                    cout << "rainbow! (default)" << endl;
+                    break;
+                case WINTER:
+                    m_backgroundSpriteTheme.setTexture(m_winterBackgroundTexture);
+                    cout << "winter!" << endl;
+                    break;
+                case SPRING:
+                    m_backgroundSpriteTheme.setTexture(m_springBackgroundTexture);
+                    cout << "spring!" << endl;
+                    break;
+                case SUMMER:
+                    m_backgroundSpriteTheme.setTexture(m_summerBackgroundTexture);
+                    cout << "summer!" << endl;
+                    break;
+                case FALL:
+                    m_backgroundSpriteTheme.setTexture(m_fallBackgroundTexture);
+                    cout << "fall!" << endl;
+                    break;
+            }
+
+            for (int i = 0; i < 5; i++)
+            {
+                int numPoints = rand() % (50 - 25 - 1) + 25;
+                Vector2i mouseCoords = Mouse::getPosition(m_Window);
+                Particle particleDisplayLoc(m_Window, numPoints, mouseCoords);
+
+                // switches the particle color based on the current theme
+                switch (m_currentTheme)
+                {
+                    case RAINBOW:
+                        particleDisplayLoc.setColor(Color(rand() % 256, rand() % 256, rand() % 256));
+                        break;
+                    case WINTER:
+                        particleDisplayLoc.setColor(Color(186, 219, 255));
+                        break;
+                    case SPRING:
+                        particleDisplayLoc.setColor(Color(243, rand() % 207, 180));
+                        break;
+                    case SUMMER:
+                        particleDisplayLoc.setColor(Color(255, 200, 100));
+                        break;
+                    case FALL:
+                        particleDisplayLoc.setColor(Color(152, 72, 43));
+                        break;
+                }
+
                 m_particles.push_back(particleDisplayLoc);
             }
         }
@@ -122,6 +220,29 @@ Do not increment the iterator (if you do you might increment past the end of the
 				   i = m_particles.erase(i);
 			   }
 		   }
+
+        //sets theme to new particles (this actually updates the particles)
+        for (auto& particle : m_particles)
+        {   
+            switch (m_currentTheme)
+            {
+                case RAINBOW:
+                    particle.setColor(Color(rand() % 256, rand() % 256, rand() % 256));
+                    break;
+                case WINTER:
+                    particle.setColor(Color(186, 219, 255));
+                    break;
+                case SPRING:
+                    particle.setColor(Color(243, rand() % 207, 180));
+                    break;
+                case SUMMER:
+                    particle.setColor(Color(255, 200, 100));
+                    break;
+                case FALL:
+                    particle.setColor(Color(152, 72, 43));
+                    break;
+            }
+        }
    }
 }
 
@@ -139,7 +260,11 @@ void Engine::draw()
 
     else
     {
-        for (Particle particle : m_particles)
+        m_Window.draw(m_backgroundSpriteTheme);
+
+        m_Window.draw(m_text);
+
+        for (const Particle& particle : m_particles)
         {
                 m_Window.draw(particle);
         } 
