@@ -33,6 +33,22 @@ private:
 	Texture m_backgroundTexture;
 	Sprite m_backgroundSprite;
 
+	// for themes
+	Texture m_winterBackgroundTexture;
+
+	Texture m_springBackgroundTexture;
+
+	Texture m_summerBackgroundTexture;
+
+	Texture m_fallBackgroundTexture;
+	
+	Texture m_rainbowBackgroundTexture;
+	Sprite m_backgroundSpriteTheme;
+
+	// added so themes can be changed
+	int m_currentTheme;
+	Color m_currentThemeColor;
+
 public:
 	// The Engine constructor
 	Engine();
