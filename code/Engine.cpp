@@ -51,7 +51,7 @@ Engine::Engine() : m_Window(VideoMode(1920, 1080), "Particles!!", Style::Default
         cout << "Error loading summer theme image!" << endl;
     }
 
-    if (!m_fallBackgroundTexture.loadFromFile("fall.jpeg"))
+    if (!m_fallBackgroundTexture.loadFromFile("fall.png"))
     {
         cout << "Error loading fall theme image!" << endl;
     }
