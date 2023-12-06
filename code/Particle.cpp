@@ -11,12 +11,13 @@ bool Particle::almostEqual(double a, double b, double eps)
 }
 
 
+// Constructor (Gabe created)
 Particle::Particle(RenderTarget& target, int numPoints, Vector2i mouseClickPosition)
     : m_A(2, numPoints)
     {
 
     m_ttl = TTL; //TTL: global variable declared to 5
-	m_numPoints = numPoints; // Initialize m_numPoints to numPoints
+	m_numPoints = numPoints; // This is for how many points will be on the flowers - K
 
 	m_radiansPerSec = ((float)rand() / (RAND_MAX)) * M_PI; 
 
@@ -43,11 +44,13 @@ Particle::Particle(RenderTarget& target, int numPoints, Vector2i mouseClickPosit
 
 	for (int j = 0; j < numPoints; j++)
 	{
-		float r = rand() % 61 + 20;
-		float dx = r * cos(theta);	
-		float dy = r * sin(theta);
+		float r = rand() % 61 + 20; // Radius so its random in every flower
+		float dx = r * cos(theta); // shape related
+		float dy = r * sin(theta); // shape related (soft might be a good word for it?)
 		theta += dTheta;			
 
+		// so the m_A is basically what our shape is of the particle I think 
+		// hard points on the plane
 		m_A(0, j) = m_centerCoordinate.x + dx;
 		m_A(1, j) = m_centerCoordinate.y + dy;
 	}
