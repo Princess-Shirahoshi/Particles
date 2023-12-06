@@ -28,6 +28,11 @@ Particle::Particle(RenderTarget& target, int numPoints, Vector2i mouseClickPosit
 	m_centerCoordinate = target.mapPixelToCoords(mouseClickPosition, m_cartesianPlane);
 
 	m_vx = rand() % (400 + 100);
+    int n = rand() % 2;
+    if (n == 0)
+    {
+        m_vx = m_vx * -1;
+    }
 	m_vy = rand() % (400 + 100);
 
 	m_color1 = Color::White;
