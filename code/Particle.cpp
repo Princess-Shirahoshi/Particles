@@ -118,6 +118,8 @@ void Particle::rotate(double theta)
 	translate(temp.x, temp.y);
 }
 
+// If you want to change the scaling change the "c" variable here to like 1.5, 0.5 to test if you'd like
+// But don't touch the other scale function in Matrices!!
 void Particle::scale(double c)
 {
 	Vector2f temp = m_centerCoordinate;
