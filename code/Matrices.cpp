@@ -116,7 +116,7 @@ namespace Matrices
         return os;
     }
 
-
+	// Spinning really arond the origin point
 	RotationMatrix::RotationMatrix(double theta) : Matrix(2, 2)
 	{
         // cos && theta here from Trig
@@ -127,6 +127,8 @@ namespace Matrices
 
 	}
 
+	// Don't touch this function 
+	// Leave these as 0 
 	ScalingMatrix::ScalingMatrix(double scale) : Matrix(2, 2)
 	{
         // scaling 
@@ -136,6 +138,8 @@ namespace Matrices
 		a.at(1).at(1) = scale;
 	}
 
+	// When I was debugging this and commented it out everything just stood still 
+	// it was pretty nifty looking -> this does the "falling" 
 	TranslationMatrix::TranslationMatrix(double xShift, double yShift, int nCols) : Matrix(2, nCols)
 	{
         // Translation and shifting 
