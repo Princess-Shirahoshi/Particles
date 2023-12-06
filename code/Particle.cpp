@@ -122,6 +122,9 @@ void Particle::rotate(double theta)
 }
 
 // If you want to change the scaling change the "c" variable here to like 1.5, 0.5 to test if you'd like
+//2.0 is a large flower that is like a bright explosion
+// 0.5 are extremely tiny flowers that disappear near immediately 
+//"c" is just the normal particles we've been doing 
 // But don't touch the other scale function in Matrices!!
 void Particle::scale(double c)
 {
@@ -131,6 +134,7 @@ void Particle::scale(double c)
 	m_A = S * m_A;			
 	translate(temp.x, temp.y);	
 }
+
 
 void Particle::unitTests()
 {

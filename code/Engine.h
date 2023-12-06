@@ -7,10 +7,9 @@ using namespace std;
 class Engine
 {
 private:
-	// font for engine.cpp
+	
 	Font m_font;
 
-	// A regular RenderWindow
 	RenderWindow m_Window;
 
 	//vector for Particles

@@ -116,7 +116,7 @@ namespace Matrices
         return os;
     }
 
-	// Spinning really arond the origin point
+	// Spinning really around the origin point
 	RotationMatrix::RotationMatrix(double theta) : Matrix(2, 2)
 	{
         // cos && theta here from Trig

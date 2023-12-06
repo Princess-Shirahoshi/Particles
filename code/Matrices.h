@@ -60,7 +60,7 @@ namespace Matrices
     ///usage:  a != b
     bool operator!=(const Matrix& a, const Matrix& b);
 
-    ///Output matrix.
+    ///Output matrix here.
     ///Separate columns by ' ' and rows by '\n'
     ostream& operator<<(ostream& os, const Matrix& a);
 

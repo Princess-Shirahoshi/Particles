@@ -56,15 +56,14 @@ Engine::Engine() : m_Window(VideoMode(1920, 1080), "Particles!!", Style::Default
     // added this in case font doesnt load for whatever reason
     if (!m_font.loadFromFile("font.ttf")) 
     {
-        // Displays message to user if font doesn't load
         cout << "Error loading font!" << endl;
     }
 
     // creating m_text objects here 
     m_text.setFont(m_font);
-    m_text.setCharacterSize(60); //Sets m_text size
-    m_text.setFillColor(Color::White); //Sets m_text color
-    m_text.setPosition(10, 10); //Positions m_text
+    m_text.setCharacterSize(60); 
+    m_text.setFillColor(Color::White); 
+    m_text.setPosition(10, 10); 
     m_text.setString("PRESS 'T' TO CHANGE THEME");
     
     m_titleText.setFont(m_font);
@@ -73,7 +72,7 @@ Engine::Engine() : m_Window(VideoMode(1920, 1080), "Particles!!", Style::Default
     m_titleText.setOutlineColor(Color::White);
     m_titleText.setOutlineThickness(3.0f);
     m_titleText.setPosition(550, 140);
-    m_titleText.setString("PARTICLES"); //Adds title screen
+    m_titleText.setString("PARTICLES"); 
 
     m_startText.setFont(m_font);
     m_startText.setCharacterSize(60);
@@ -121,6 +120,7 @@ void Engine::input()
         }
         if (event.type == Event::KeyPressed && event.key.code == Keyboard::T && !m_titleScreen)
         {
+            // This outputs to the Terminal
             cout << "Changing theme from " << m_currentTheme;
 
             m_currentTheme = (m_currentTheme + 1) % 5; // change 5 to add to the total number of themes
@@ -154,7 +154,7 @@ void Engine::input()
 
             for (int i = 0; i < 5; i++)
             {
-		// generating random integer -> so it is 50-25-1 = 24 and then + 25 for 25 to 48 range
+		        // generating random integer -> so it is 50-25-1 = 24 and then + 25 for 25 to 48 range
                 int numPoints = rand() % (50 - 25 - 1) + 25;
                 Vector2i mouseCoords = Mouse::getPosition(m_Window);
                 Particle particleDisplayLoc(m_Window, numPoints, mouseCoords);
