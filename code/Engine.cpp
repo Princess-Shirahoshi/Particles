@@ -1,11 +1,6 @@
-// Suggestions:
-// Karissa do you want to organize the functions like this or match exactly to the instructions? I think this looks more sequential but lemme know what you think
-// Gabe -> I think the functions look fine, we just want to make sure it's readable for the professor // this should be okay
-
 #include "Engine.h"
 #include <iostream> // added for cout 
 #include "Particle.h"
-#include <iterator>
 using namespace std;
 
 enum Theme 
@@ -86,7 +81,7 @@ Engine::Engine() : m_Window(VideoMode(1920, 1080), "Particles!!", Style::Default
     m_startText.setPosition(700, 600);
     m_startText.setString("   PRESS ANY KEY TO PLAY!\n\nCREATED BY KARISSA & GABE");
 
-    // bool for titlescreen, true to display, false to dissapear
+    // bool for titlescreen, true to display, false to disappear
     m_titleScreen = true;
 }
 
@@ -159,6 +154,7 @@ void Engine::input()
 
             for (int i = 0; i < 5; i++)
             {
+		// generating random integer -> so it is 50-25-1 = 24 and then + 25 for 25 to 48 range
                 int numPoints = rand() % (50 - 25 - 1) + 25;
                 Vector2i mouseCoords = Mouse::getPosition(m_Window);
                 Particle particleDisplayLoc(m_Window, numPoints, mouseCoords);
@@ -191,18 +187,6 @@ void Engine::input()
 
 
 void Engine::update(float dtAsSeconds)
-/*The general idea here is to loop through m_particles and call update on each Particle in the vector whose ttl (time to live) has not expired
-If a particle's ttl has expired, it must be erased from the vector
-This is best done with an iterator-based for-loop
-Don't automatically increment the iterator for each iteration
-if getTTL() > 0.0
-Call update on that Particle
-increment the iterator
-else
-erase the element the iterator points to
-erase returns an iterator that points to the next element after deletion, or end if it is the end of the vector
-Assign the iterator to this return value
-Do not increment the iterator (if you do you might increment past the end of the vector after you delete the last element)*/
 {
    if (!m_titleScreen)
    {
@@ -210,14 +194,14 @@ Do not increment the iterator (if you do you might increment past the end of the
 	   // I googled the increment and we only need to keep a semi-colon there at end and then it will like re-eval it but won't error out 
 	   for (auto i = m_particles.begin(); i != m_particles.end();)
 		   {
-			   if (i->getTTL() > 0.0)
+			   if (i->getTTL() > 0.0) // TTL expired check
 			   {
-				   i->update(dtAsSeconds);
+				   i->update(dtAsSeconds); // calling the update here per the instructions!
 				   i++;
 			   }
 			   else
 			   {
-				   i = m_particles.erase(i);
+				   i = m_particles.erase(i); // If expired then we erase it from the vector here!
 			   }
 		   }
 
@@ -260,12 +244,14 @@ void Engine::draw()
 
     else
     {
+	// game screen active here!
         m_Window.draw(m_backgroundSpriteTheme);
 
         m_Window.draw(m_text);
 
         for (const Particle& particle : m_particles)
         {
+		// drawing our flowers here
                 m_Window.draw(particle);
         } 
     }
